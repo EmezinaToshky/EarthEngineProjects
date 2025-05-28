@@ -4,14 +4,21 @@
 ## For the Flooding Assessment in Akosombo and its Environs
 Using remote sensing, in this case Synthetic aperture radar (SAR) and GIS for evaluating the flooding extents for the 2023 inundation event in Akosombo, Ghana (West Africa). The application also incorprated SAR Image despeckling using refined the Lee Filter (Yommy et al., 2015) for efficient speckle noise removal and the improvement of image quality . The method is based on the well-known as Lee filter and applies the K-Nearest Neighbour (KNN) algorithm, which  is employed to adjust the number of neighbour pixels used within the sliding window.
 
+
 ### Overview on the SAR sensor
 The SAR (Synthetic Aperture Radar) sensor is mounted satellite and points sideways instead of straight down (nadir). It is an active sensor that sends electromagnetic waves to the earth's surface and receives the reflected signal. The electromagnetic wave received by the sensor is called the measured backscatter. A SAR image is a 2D rendering of the measured backscatter.
 
 ### Benefits/advantages of using SAR data
 a. An active sensor, used by SAR systems, functions as both the source and the receiver 
+
 b. Unlike an optical sensor, a SAR sensor can operate during the day or night, independent of the sun, since it transmits its own signal. 
+
 c. Active sensing also allows you to control the polarization of the transmitted electromagnetic waves. 
+
 d. SAR can penetrate through clouds, smoke, and even vegetation, making it particularly useful during extreme weather events when optical sensors may be ineffective
+
+### Results (Illustration of the User-Interface acquired from GEE)
+![Akosombo_Flooding_SAR_extract](https://github.com/user-attachments/assets/2fbf857b-0eb1-4029-8ba7-cf8a2846e6c9)
 
 ### Link to the Webpage
 https://ee-geohazardrisk-mapping.projects.earthengine.app/view/akosombofloodingsar
