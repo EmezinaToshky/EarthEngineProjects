@@ -31,3 +31,66 @@ https://github.com/senbox-org/s1tbx/blob/master/s1tbx-op-sar-processing/src/main
 ### Reference
 Yommy, A. S., Liu, R., & Wu, S. (2015, August). SAR image despeckling using refined Lee filter. In 2015 7th International Conference on Intelligent Human-Machine Systems and Cybernetics (Vol. 2, pp. 260-265). IEEE.
 
+
+## West-African Climate Assessment tool: Case study for Ghana & Nigeria
+
+Using remote sensing , GIS and other Earth Observatory System applications for climate assessment in West African countries
+
+### Overview on MODIS Land Surface Temperature (LST) & Precipitation level Viewer 
+This project is a Google Earth Engine (GEE) application that visualizes and analyzes Land Surface Temperature (LST) and Precipitation level data for Ghana and Nigeria. It allows users to select a year and month, visualize LST & Precipitation level data, as well as view a time series of both climate factor patterns/values for specific locations. The tool also provides a user-friendly interface for interaction, making it easy to explore the MODIS LST dataset and CHIRPS precipitation data over the region.
+
+Futhermore, the base code is modular therby making the same assessment possible at any local and/or national level by changing a few parameters to suit the desired ROI.
+
+Credit to https://github.com/Osman-Geomatics93/Sudan-Climate-Analysis-Tool-2024- for the inspiration.
+
+### Goal
+Visualize LST and Precipitation Data: Allow users to view MODIS Land Surface Temperature (LST) data & Rainfall Patterns.
+
+Interactive Time Series: Let users click on the map to view a time series of LST values & rainfall patterns for any location.
+
+User-friendly Interface: Provide a well-structured, clean UI webapp for year and month selection, data visualization, and chart generation.
+
+### Data Sources
+Land Surface Temperature: MODIS/061/MOD11A2
+
+Rainfall Data: UCSB-CHG/CHIRPS/PENTAD
+
+Administrative Boundaries: USDOS/LSIB_SIMPLE/2017
+
+### Features
+Temperature Analysis: MODIS-based LST data processing and visualization
+
+Rainfall Patterns: CHIRPS precipitation data analysis
+
+Interactive Maps: Toggle between temperature and rainfall layers
+
+Time Series Charts: Visual representation of temporal climate patterns
+
+Point Analysis: Click-based location-specific climate information
+
+Custom Legend: Clear visualization of data ranges
+
+### Methodology
+
+![image](https://github.com/user-attachments/assets/2f49d070-4806-4894-8e06-eef090cbe88b)
+
+### Selected Results
+1. Land Surface Temperature (LST) in Nigeria on February 2002
+
+![image](https://github.com/user-attachments/assets/79008f78-53c5-46e5-a1d4-290470887f49)
+
+2. Precipitation levels time series from 1981 to 2024 in Accra, Ghana
+
+![image](https://github.com/user-attachments/assets/955c0f05-b6ab-414d-89fe-0ddba98486b7)
+
+### Google Earth Engine Webapps
+https://ee-geohazardrisk-mapping.projects.earthengine.app/view/ghana-lst-assessment
+
+https://ee-geohazardrisk-mapping.projects.earthengine.app/view/ghana-precipitation-assessment
+
+https://ee-geohazardrisk-mapping.projects.earthengine.app/view/nigeria-lst-assessment
+
+https://ee-geohazardrisk-mapping.projects.earthengine.app/view/nigeria-precipitation-assessment
+
+
+
