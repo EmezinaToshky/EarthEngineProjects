@@ -1,0 +1,128 @@
+Documentation
+
+Below is a comprehensive, line-by-line explanation of the Composite Flood Index (CFI) script using Sentinel-1 VV and VH bands in Google Earth Engine. This documentation is written to help you fully understand the logic and potential for adapting it in urban + vegetated flood risk assessments.
+
+ Composite Flood Index GEE Script – Full Explanation
+
+// Step 1: Load Sentinel-1 SAR Collection
+a) var collection = ee.ImageCollection('COPERNICUS/S1_GRD')
+▶ Loads Sentinel-1 SAR Ground Range Detected (GRD) data. This includes both VV and VH polarization imagery from Sentinel-1 satellites.
+
+
+b) .filter(ee.Filter.eq('instrumentMode', 'IW'))
+▶ Filters for the Interferometric Wide Swath (IW) mode, which is optimized for land applications (vs. open ocean).
+
+c)  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
+  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VH'))
+▶ Ensures we only keep images that contain both VV and VH polarizations—essential for dual-band composite analysis.
+
+d)   .filterBounds(dt);
+▶ Limits the dataset to images that cover the area of interest (AOI) stored in the variable dt.
+
+
+// Step 2: Define Before and After Periods
+a) var before = collection.filterDate('2023-03-01', '2023-04-29');
+var after = collection.filterDate('2023-09-01', '2023-09-30');
+▶ Filters the image collection to create two time-based subsets:
+
+before: Pre-flood season (e.g., dry period).
+
+after: Flood season (expected inundation).
+
+
+b) var beforeVV = before.select('VV').mosaic().clip(dt);
+var afterVV = after.select('VV').mosaic().clip(dt);
+var beforeVH = before.select('VH').mosaic().clip(dt);
+var afterVH = after.select('VH').mosaic().clip(dt);
+▶ From the before and after collections:
+
+Selects VV and VH bands separately.
+
+Applies .mosaic() to merge images from the time period into a single image (latest pixel wins by default).
+
+Applies .clip(dt) to constrain the image to your AOI.
+
+
+// Step 3: Convert from dB to linear scale (optional but better for difference math)
+a) function toLinear(img) {
+  return ee.Image(10).pow(img.divide(10));
+}
+
+▶ SAR backscatter is in decibels (dB). This function converts from logarithmic (dB) to linear scale, which:
+
+Preserves physical relationships.
+
+Makes mathematical operations (like difference or ratio) more valid.
+
+
+b) var beforeVV_lin = toLinear(beforeVV);
+var afterVV_lin = toLinear(afterVV);
+var beforeVH_lin = toLinear(beforeVH);
+var afterVH_lin = toLinear(afterVH);
+
+▶ Applies the toLinear() function to each image to prepare for accurate flood index calculation.
+
+
+// Step 4: Compute normalized difference of backscatter drops
+a) var diffVV = beforeVV_lin.subtract(afterVV_lin).divide(beforeVV_lin);
+var diffVH = beforeVH_lin.subtract(afterVH_lin).divide(beforeVH_lin);
+
+▶ Computes normalized backscatter change:
+
+diff = (Before - After) / Before
+
+A positive value means backscatter dropped after the flood—a strong indicator of water presence.
+
+Separate results for VV and VH.
+
+
+// Step 5: Composite Flood Index (CFI) - weighted or averaged
+var floodIndex = diffVV.add(diffVH).divide(2);
+
+▶ Averages the normalized VV and VH change:
+
+This is the Composite Flood Index (CFI).
+Captures flood signals from both surface (VV) and vegetation (VH) reflection behavior.
+Optionally, you could use weighted averages (e.g., 60% VV, 40% VH) depending on your land cover type.
+
+
+// Step 6: Apply threshold to define flooded areas
+var floodMask = floodIndex.gt(0.35);
+▶ Applies a threshold to identify flooded pixels:
+
+Any pixel with a >35% drop in backscatter is labeled as flooded.
+
+This threshold can be tuned (e.g., try 0.3–0.5 depending on your test results).
+
+// Step 7: Mask and Display
+a) var flood_masked = floodMask.updateMask(floodMask);
+▶ Converts the binary mask (true/false) into an image layer, hiding all non-flooded pixels.
+
+b) Map.centerObject(dt, 12);
+Map.addLayer(floodIndex, {min: 0, max: 0.8, palette: ['white', 'blue']}, 'Flood Index');
+Map.addLayer(flood_masked, {palette: ['0000FF']}, 'Flooded Areas (Composite Index)');
+
+▶ Displays:
+
+The flood index layer using a color gradient (white = no change, blue = high flood likelihood).
+
+The binary flood mask as solid blue pixels over actual flooded areas.
+
+
+SUMMARY
+| Components (features)   | Purpose (Advantages)                                          
+| ------------------------| ------------------------------------------------------------- |
+| VV & VH used together   | Maximizes accuracy in diverse land cover (urban + vegetation) |
+| Normalized change       | Captures meaningful backscatter drop patterns                 |
+| Linear conversion       | Improves math integrity of flood calculations                 |
+| Thresholding            | Classifies flooded areas based on percent backscatter change  |
+| Modular design          | Easy to tune, test, and improve over time                     |
+
+
+
+
+
+
+
+
+
