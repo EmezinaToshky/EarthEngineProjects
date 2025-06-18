@@ -1,3 +1,16 @@
+# Using Composite Flood Index (CFI) approach via Sentinel-1 VV and VH bands in Google Earth Engine for flood impact analysis.
+
+## For the Flooding Impact Assessment in Mokwa town, Niger State, Nigeria (occured between May 28–29, 2025)
+The impact of this flooding event had very signifiant damage with officials estimatings over 200 confirmed casualties and over 1,000 individuals missing. At least 121 others were injured, and the flooding destroyed 2,000 homes. This project aims to outline the extent of the flood event using Sentinel-1 SAR GRD dataset from GEE. 
+
+Sentinel-1 SARGround Range Detected (GRD) scenes are processed using the Sentinel-1 Toolbox to generate a calibrated and an ortho-corrected product. The collection is updated daily. New assets are ingested within two days after they become available.
+
+Specific shapefile of the ROI can be assessed at https://unosat.org/products/4139 and the link to the original GEE code: https://code.earthengine.google.com/c340828cc074818912a6069cc5c5be9e. 
+
+A GEE webapp is also available as https://ee-geohazardrisk-mapping.projects.earthengine.app/view/june-2025-flood-impact-analysis-in-mokwa-town-niger-state
+
+Documentation of the process is illustrated in this folder as "Mokwa Town flood code explanations" 
+
 # Earth Engine Projects - Using Google Earth Engine (GEE) as a tool for remote sensing and Earth Observation (EO).  
 
 
